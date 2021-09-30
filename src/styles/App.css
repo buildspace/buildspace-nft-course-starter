@@ -14,27 +14,81 @@
 }
 
 .header-container {
-  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.top-header{
+  display: flex;
+  justify-content: end;
+  margin-top: 5px;
+  margin-right: 15px;
 }
 
 .header {
   margin: 0;
-  font-size: 50px;
+  font-size: 60px;
   font-weight: bold;
 }
 
+.header-medium {
+  margin: 0;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.header-small {
+  margin: 4px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.collection-link{
+  font-size: 25px;
+  color: white;
+  text-decoration: none;
+}
 .sub-text {
   font-size: 25px;
   color: white;
 }
 
+.sub-text-body {
+  font-size: 25px;
+  color: white;
+}
+
+
 .gradient-text {
-  background: -webkit-linear-gradient(left, #60c657 30%, #35aee2 60%);
+  background: -webkit-linear-gradient(left, #60c657 25%, #35aee2 60%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.gradient-text-count {
+  background: -webkit-linear-gradient(left, #fcba4a 25%, #f07f99 60%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.connected-wallet-status{
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: column;
+}
+.connection-status{
+display: inline-block;
+margin: 1px 10px;
+width: 10px;
+height: 10px;
+border-radius: 100%;
+background-color: #34d399;
+}
+.body-container{
+  padding-top: 30px;
+}
 .cta-button {
   height: 45px;
   border: 0;
@@ -43,7 +97,7 @@
   padding-right: 40px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: white;
 }
@@ -58,7 +112,8 @@
   background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
-  margin-right: 15px;
+  margin-top:10px;
+  margin-bottom: 20px;
 }
 
 .opensea-button {
@@ -76,6 +131,7 @@
   justify-content: center;
   align-items: center;
   padding-bottom: 30px;
+  padding-top: 30px;
 }
 
 .twitter-logo {
@@ -89,6 +145,17 @@
   font-weight: bold;
 }
 
+.open-sea{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 40px;
+  padding-top: 10px;
+}
+
+.opensea-img{
+  align-items: center;
+}
 /* KeyFrames */
 @-webkit-keyframes gradient-animation {
   0% {
