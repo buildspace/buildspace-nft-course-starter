@@ -12,7 +12,7 @@ const App = () => {
   // Render Methods
   const renderNotConnectedContainer = () => (
     <button className="cta-button connect-wallet-button">
-      Connect to Wallet
+      Connect to Wallet >> it will ask for permission!
     </button>
   );
 
