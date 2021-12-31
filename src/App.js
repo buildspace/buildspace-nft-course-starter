@@ -9,6 +9,19 @@ const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 
 const App = () => {
+ 
+  const checkIfWalletIsConnected = () => {
+    //mirar si hay acceso a window.ethereum
+    const {ethereum} = window;
+    
+    if(!ethereum) {
+      console.log("make sure you have metamask");
+      return;
+    }else{
+      console.log("we have the ethereum object", etehreum);
+    }
+  }
+  
   // Render Methods
   const renderNotConnectedContainer = () => (
     <button className="cta-button connect-wallet-button">
@@ -16,6 +29,13 @@ const App = () => {
     </button>
   );
 
+  /*
+  * This runs our function when the page loads.
+  */
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [])
+  
   return (
     <div className="App">
       <div className="container">
