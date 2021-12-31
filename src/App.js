@@ -1,36 +1,27 @@
+import React, { useEffect, useState } from "react";
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
-import React, { useEffect, useState } from "react";
 
-// Constants
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 
 const App = () => {
- const [currentAccount, setCurrentAccount] = useState("");
- 
+  const [currentAccount, setCurrentAccount] = useState("");
+  
   const checkIfWalletIsConnected = async () => {
-    //mirar si hay acceso a window.ethereum
-    const {ethereum} = window;
-    
-    if(!ethereum) {
-      console.log("make sure you have metamask");
+    const { ethereum } = window;
+
+    if (!ethereum) {
+      console.log("Make sure you have metamask!");
       return;
-    }else{
-      console.log("we have the ethereum object", ethereum);
+    } else {
+      console.log("We have the ethereum object", ethereum);
     }
-  }
-  
-  /*
-    * Check if we're authorized to access the user's wallet
-    */
+
     const accounts = await ethereum.request({ method: 'eth_accounts' });
-  
- /*
-    * User can have multiple authorized accounts, we grab the first one if its there!
-    */
+
     if (accounts.length !== 0) {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
@@ -39,6 +30,7 @@ const App = () => {
       console.log("No authorized account found")
     }
   }
+
   /*
   * Implement your connectWallet method here
   */
@@ -64,23 +56,19 @@ const App = () => {
     } catch (error) {
       console.log(error)
     }
-  }  
-
+  }
 
   // Render Methods
   const renderNotConnectedContainer = () => (
-    <button className="cta-button connect-wallet-button">
-      Connect to Wallet >> it will ask for permission!
+    <button onClick={connectWallet} className="cta-button connect-wallet-button">
+      Connect to Wallet
     </button>
   );
 
-  /*
-  * This runs our function when the page loads.
-  */
   useEffect(() => {
     checkIfWalletIsConnected();
   }, [])
-  
+
   /*
   * Added a conditional render! We don't want to show Connect to Wallet if we're already conencted :).
   */
