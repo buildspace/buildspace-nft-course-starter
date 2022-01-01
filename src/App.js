@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
+import myEpicNft from './utils/MyEpicNFT.json';
 
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
