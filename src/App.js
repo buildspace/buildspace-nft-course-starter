@@ -132,15 +132,4 @@ const App = () => {
   );
 };
 
-return (
-  {currentAccount === "" 
-    ? renderNotConnectedContainer()
-    : (
-      /** Add askContractToMintNft Action for the onClick event **/
-      <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-        Mint NFT
-      </button>
-    )
-  }
-);
 export default App;
