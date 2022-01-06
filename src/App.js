@@ -89,9 +89,9 @@ const App = () => {
           alert(`Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`)
         });
 
-        connectedContract.on("NewEpicNFTMinted", (from, tokenId) => {
-          console.log(from, tokenId.toNumber())
-          alert(`Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`)
+        connectedContract.on("getTotalNFTsMintedSoFar", (from, ntfsMined) => {
+          console.log(from, ntfsMined.toNumber())
+          alert(`${ntfsMined.toNumber()}/50 Mined! `)
         });
 
         console.log("Setup event listener!")
@@ -123,15 +123,13 @@ const App = () => {
       if (chainId !== rinkebyChainId) {
         alert("You are not connected to the Rinkeby Test Network!");
         }  else  {
-      console.log("Going to pop wallet now to pay gas...")
-      let nftTxn = await connectedContract.makeAnEpicNFT();
+        console.log("Going to pop wallet now to pay gas...")
+        let nftTxn = await connectedContract.makeAnEpicNFT();
 
-      console.log("Mining...please wait.")
-      await nftTxn.wait();
-      
-      console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-      console.log(`Opensea link: https://testnets.opensea.io/assets/${nftTxn.hash}/INSERT_TOKEN_ID_HERE`);
-      console.log(`Rarible link: https://rinkeby.rarible.com/token/${nftTxn.hash}:INSERT_TOKEN_ID_HERE`);
+        console.log("Mining...please wait.")
+        await nftTxn.wait();
+        
+      console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);      
         }
 
     } else {
