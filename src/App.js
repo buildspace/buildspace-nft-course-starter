@@ -79,16 +79,7 @@ const App = () => {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
-
-        let chainId = await ethereum.request({ method: 'eth_chainId' });
-        console.log("Connected to chain " + chainId);
-        // String, hex code of the chainId of the Rinkebey test network
-        const rinkebyChainId = "0x4"; 
-        if (chainId !== rinkebyChainId) {
-          alert("You are not connected to the Rinkeby Test Network!");
-  
-          
-        }
+ 
 
         // THIS IS THE MAGIC SAUCE.
         // This will essentially "capture" our event when our contract throws it.
@@ -124,6 +115,14 @@ const App = () => {
       const signer = provider.getSigner();
       const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
 
+
+      let chainId = await ethereum.request({ method: 'eth_chainId' });
+      console.log("Connected to chain " + chainId);
+      // String, hex code of the chainId of the Rinkebey test network
+      const rinkebyChainId = "0x4"; 
+      if (chainId !== rinkebyChainId) {
+        alert("You are not connected to the Rinkeby Test Network!");
+        }  else  {
       console.log("Going to pop wallet now to pay gas...")
       let nftTxn = await connectedContract.makeAnEpicNFT();
 
@@ -133,7 +132,7 @@ const App = () => {
       console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
       console.log(`Opensea link: https://testnets.opensea.io/assets/${nftTxn.hash}/INSERT_TOKEN_ID_HERE`);
       console.log(`Rarible link: https://rinkeby.rarible.com/token/${nftTxn.hash}:INSERT_TOKEN_ID_HERE`);
-
+        }
 
     } else {
       console.log("Ethereum object doesn't exist!");
