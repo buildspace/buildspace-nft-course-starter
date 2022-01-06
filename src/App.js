@@ -9,7 +9,7 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 
-const CONTRACT_ADDRESS = "0xD3c07b4B99673F4292907d99b24A25e5AA89eb0a";
+const CONTRACT_ADDRESS = "0x67B812eedC0ef608A9764c7f3cbbD3c753dd81D0";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -168,7 +168,7 @@ const App = () => {
              /** Add askContractToMintNft Action for the onClick event **/
       <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
         Mint NFT
-      </button>
+      </button>      
           )}
         </div>
         <div className="footer-container">
