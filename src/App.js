@@ -162,7 +162,9 @@ const App = () => {
           <p className="sub-text">
             Each unique. Each beautiful. Discover your NFT today.
           </p>
-          <a href={OPENSEA_LINK}>See the collection!</a>
+          <p>
+            <a className="footer-text" href={OPENSEA_LINK}>See the collection!</a>
+          </p>
           {currentAccount === "" ? (
             renderNotConnectedContainer()
           ) : (
