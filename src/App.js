@@ -6,7 +6,7 @@ import myEpicNft from './utils/MyEpicNFT.json';
 
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = '';
+const OPENSEA_LINK = 'https://testnets.opensea.io/collection/squarenft-o0oige43xx';
 const TOTAL_MINT_COUNT = 50;
 
 const CONTRACT_ADDRESS = "0x6E3f8B060c76e120d9Baaf07B4482EAaB71f90AF";
@@ -162,6 +162,7 @@ const App = () => {
           <p className="sub-text">
             Each unique. Each beautiful. Discover your NFT today.
           </p>
+          <a href={OPENSEA_LINK}>See the collection!</a>
           {currentAccount === "" ? (
             renderNotConnectedContainer()
           ) : (
