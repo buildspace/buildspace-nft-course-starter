@@ -93,7 +93,7 @@ const App = () => {
           console.log(from, ntfsMined.toNumber())
           alert(`${ntfsMined.toNumber()}/50 Mined! `)
         });
-*/
+*/ 
         console.log("Setup event listener!")
 
       } else {
