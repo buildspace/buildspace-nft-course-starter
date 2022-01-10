@@ -14,6 +14,7 @@ const CONTRACT_ADDRESS = "0xB8957d7292bC32E1837258231D53a1AEFfD2134a";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
+  const [totalMintCount, setTotalMintCount] = useState(0);
   
   const checkIfWalletIsConnected = async () => {
     const { ethereum } = window;
@@ -130,9 +131,10 @@ const App = () => {
 
         console.log("Mining...please wait.")
         await nftTxn.wait();
-
-        TOTAL_MINT = connectedContract.getTotalNFTsMintedSoFar().toNumber;
-        console.log(`Total minted: ${TOTAL_MINT}`);
+        
+        let totalMinted = await connectedContract.getTotalNFTsMintedSoFar();
+        setTotalMintCount(totalMinted)
+        console.log(`Total minted: ${totalMinted}`);
         
       console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);      
         }
@@ -177,7 +179,7 @@ const App = () => {
           ) : (
              /** Add askContractToMintNft Action for the onClick event **/
       <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-        {`Press to Mint. Minted ${connectedContract.getTotalNFTsMintedSoFar().toNumber}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
+        {`Press to Mint. Minted ${totalMinted}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
 
         
       </button>      
