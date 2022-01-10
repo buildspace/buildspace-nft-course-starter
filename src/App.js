@@ -155,6 +155,8 @@ const App = () => {
     </button>
   );
 
+  
+
   useEffect(() => {
     checkIfWalletIsConnected();
   }, [])
@@ -179,11 +181,13 @@ const App = () => {
           ) : (
              /** Add askContractToMintNft Action for the onClick event **/
       <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-        {`Press to Mint. Minted ${totalMintCount}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
-
-        
+        {`Press to Mint one of ${TOTAL_MINT_COUNT} autogenerative NTF!.`}       
       </button>      
           )}
+
+       {totalMintCount > 0 ? (<p>{`Minted ${totalMintCount}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}</p>) : (<p></p>)}
+
+
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
