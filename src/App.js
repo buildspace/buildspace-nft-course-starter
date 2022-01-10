@@ -8,8 +8,9 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = 'https://testnets.opensea.io/collection/squarenft-o0oige43xx';
 const TOTAL_MINT_COUNT = 50;
+const TOTAL_MINT = "";
 
-const CONTRACT_ADDRESS = "0x6E3f8B060c76e120d9Baaf07B4482EAaB71f90AF";
+const CONTRACT_ADDRESS = "0xB8957d7292bC32E1837258231D53a1AEFfD2134a";
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -80,7 +81,8 @@ const App = () => {
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
  
-
+        TOTAL_MINT = connectedContract.on("getTotalNFTsMintedSoFar").toNumber;
+        console.log(`Total minted: ${TOTAL_MINT}`);
         // THIS IS THE MAGIC SAUCE.
         // This will essentially "capture" our event when our contract throws it.
         // If you're familiar with webhooks, it's very similar to that!
@@ -104,8 +106,10 @@ const App = () => {
     }
   }
 
+  
+
   const askContractToMintNft = async () => {
- 
+    
 
   try {
     const { ethereum } = window;
@@ -114,8 +118,6 @@ const App = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
-
-
       let chainId = await ethereum.request({ method: 'eth_chainId' });
       console.log("Connected to chain " + chainId);
       // String, hex code of the chainId of the Rinkebey test network
@@ -123,6 +125,7 @@ const App = () => {
       if (chainId !== rinkebyChainId) {
         alert("You are not connected to the Rinkeby Test Network!");
         }  else  {
+
         console.log("Going to pop wallet now to pay gas...")
         let nftTxn = await connectedContract.makeAnEpicNFT();
 
@@ -163,6 +166,7 @@ const App = () => {
             Each unique. Each beautiful. Discover your NFT today.
           </p>
           <p>
+
             <a className="footer-text" href={OPENSEA_LINK}>See the collection!</a>
           </p>
           {currentAccount === "" ? (
@@ -170,7 +174,7 @@ const App = () => {
           ) : (
              /** Add askContractToMintNft Action for the onClick event **/
       <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-        Mint NFT
+        {`Press to Mint. Minted ${TOTAL_MINT}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
       </button>      
           )}
         </div>
