@@ -81,8 +81,7 @@ const App = () => {
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
  
-        TOTAL_MINT = connectedContract.getTotalNFTsMintedSoFar().toNumber;
-        console.log(`Total minted: ${TOTAL_MINT}`);
+       
         // THIS IS THE MAGIC SAUCE.
         // This will essentially "capture" our event when our contract throws it.
         // If you're familiar with webhooks, it's very similar to that!
@@ -145,7 +144,8 @@ const App = () => {
     console.log(error)
   }
 }
-  
+
+
   // Render Methods
   const renderNotConnectedContainer = () => (
     <button onClick={connectWallet} className="cta-button connect-wallet-button">
@@ -177,7 +177,9 @@ const App = () => {
           ) : (
              /** Add askContractToMintNft Action for the onClick event **/
       <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-        {`Press to Mint. Minted ${TOTAL_MINT}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
+        {`Press to Mint. Minted ${connectedContract.getTotalNFTsMintedSoFar().toNumber}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
+
+        
       </button>      
           )}
         </div>
