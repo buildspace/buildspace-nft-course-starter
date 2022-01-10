@@ -131,6 +131,9 @@ const App = () => {
 
         console.log("Mining...please wait.")
         await nftTxn.wait();
+
+        TOTAL_MINT = connectedContract.getTotalNFTsMintedSoFar().toNumber;
+        console.log(`Total minted: ${TOTAL_MINT}`);
         
       console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);      
         }
