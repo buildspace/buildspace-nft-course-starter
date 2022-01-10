@@ -179,7 +179,7 @@ const App = () => {
           ) : (
              /** Add askContractToMintNft Action for the onClick event **/
       <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-        {`Press to Mint. Minted ${totalMinted}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
+        {`Press to Mint. Minted ${totalMintCount}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}
 
         
       </button>      
