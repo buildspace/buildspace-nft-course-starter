@@ -81,7 +81,7 @@ const App = () => {
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
  
-        TOTAL_MINT = connectedContract.on("getTotalNFTsMintedSoFar").toNumber;
+        TOTAL_MINT = connectedContract.getTotalNFTsMintedSoFar().toNumber;
         console.log(`Total minted: ${TOTAL_MINT}`);
         // THIS IS THE MAGIC SAUCE.
         // This will essentially "capture" our event when our contract throws it.
