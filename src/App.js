@@ -8,7 +8,7 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = 'https://testnets.opensea.io/collection/squarenft-o0oige43xx';
 const TOTAL_MINT_COUNT = 50;
-const TOTAL_MINT = "";
+let TOTAL_MINT = "";
 
 const CONTRACT_ADDRESS = "0xB8957d7292bC32E1837258231D53a1AEFfD2134a";
 
