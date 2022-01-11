@@ -185,7 +185,7 @@ const App = () => {
       </button>      
           )}
 
-       {totalMintCount > 0 ? (<p style="color:white">{`Minted ${totalMintCount}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}</p>) : (<p></p>)}
+       {totalMintCount > 0 ? (<p style="color:white;">{`Minted ${totalMintCount}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}</p>) : (<p></p>)}
 
 
         </div>
