@@ -168,9 +168,9 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header gradient-text">My NFT Collection</p>
+          <p className="header gradient-text">Exclusive NFT autogenerative Collection</p>
           <p className="sub-text">
-            Each unique. Each beautiful. Discover your NFT today.
+            Each unique. Each beautiful. OnChain Token. Discover your NFT today.
           </p>
           <p>
 
@@ -181,11 +181,11 @@ const App = () => {
           ) : (
              /** Add askContractToMintNft Action for the onClick event **/
       <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
-        {`Press to Mint one of ${TOTAL_MINT_COUNT} autogenerative NTF!.`}       
+        {`Press to Mint one of the ${TOTAL_MINT_COUNT} exclusive autogenerative NFT!.`}       
       </button>      
           )}
 
-       {totalMintCount > 0 ? (<p>{`Minted ${totalMintCount}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}</p>) : (<p></p>)}
+       {totalMintCount > 0 ? (<p style="color:white">{`Minted ${totalMintCount}/${TOTAL_MINT_COUNT} Awesome NFTs already!`}</p>) : (<p></p>)}
 
 
         </div>
