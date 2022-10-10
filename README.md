@@ -7,5 +7,7 @@ To get started with this course, clone this repo and follow these commands:
 2. Run `npm run start` to start the project
 3. Start coding!
 
-### **Questions?**
-Have some questions make sure you head over to your [buildspace Dashboard](https://app.buildspace.so/courses/CO961ddb5f-f428-4608-9949-a9a2f461eb3f) and link your Discord account so you can get access to helpful channels and your instructor!
+### **Updating Contract?**
+Each time you modify your contract and then deploy to Network, then you need to update
+contract Address,  abi file on src/utils folder and redeploy this app to server.
+

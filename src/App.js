@@ -2,12 +2,12 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import myEpicNft from './utils/MyEpicNFT.json';
-
+import progresGif from "./assets/progress.gif";
 
 // Constants
-const TWITTER_HANDLE = "_buildspace";
+const TWITTER_HANDLE = "pkusma";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = "";
+const OPENSEA_LINK = "https://testnets.opensea.io/assets/";
 const TOTAL_MINT_COUNT = 50;
 
 const CONTRACT_ADDRESS = "0xEA17862D27b4C7EA695B190aB81Dccc4c462A378";
@@ -18,7 +18,12 @@ const App = () => {
   Don't forget to import useState.
   */
   const [currentAccount, setCurrentAccount] = useState("");
-
+  const [isRightNetwork, setIsRightNetwork] = useState(false);
+  const [isMinting, setIsMinting] = useState(false);
+  const [isWaitingConfiramtion, setIsWaitingConfiramtion] = useState(false);
+  const [tokenId, setTokenId] = useState("");
+  const [contractHash, setContractHash] = useState("");
+  
   const checkIfWalletIsConnected = async () => {
     /*
      * First make sure we have access to window.ethereum
@@ -48,8 +53,10 @@ const App = () => {
       // String, hex code of the chainId of the Rinkebey test network
       const goerliChainId = "0x5";
       if (chainId !== goerliChainId) {
-        alert("You are not connected to the Goerli Test Network!");
+        setIsRightNetwork(true);
+        // alert("You are not connected to the Goerli Test Network!");
       } else {
+        setIsRightNetwork(false);
         console.log("You are connected to goerli network!")
       }
 
@@ -103,8 +110,14 @@ const App = () => {
         // This will essentially "capture" our event when our contract throws it.
         // If you're familiar with webhooks, it's very similar to that!
         connectedContract.on("NewEpicNFTMinted", (from, tokenId) => {
-          console.log(from, tokenId.toNumber())
-          alert(`Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`)
+          console.log("=== Minted finish: ", from, tokenId.toNumber())
+
+          setTokenId(tokenId);
+
+          // alert(`Hey there! We've minted your NFT and sent it to your wallet. 
+          // It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the
+          //  link: https://testnets.opensea.io/assets/${CONTRACT_ADDRESS}/${tokenId.toNumber()}`)
+
         });
 
         console.log("Setup event listener!")
@@ -133,33 +146,66 @@ const App = () => {
     </button>
   )
 
+  const renderMintGif = () => {
+    return <img src = {progresGif} alt="minting animation"/>
+  }
 
+  const renderOpenSeaInfo = () =>{
+    return <>
+    { contractHash &&
+      <div className="mintingInfo">
+        <div className="trxInfo">Tx Hash: <a href={`https://goerli.etherscan.io/tx/${contractHash}`} target="_blank" rel="noreferrer">{contractHash}</a> </div>
+        {tokenId && <div className="openSeaInfo">Opensea url: <a href={`${OPENSEA_LINK}/${CONTRACT_ADDRESS}/${tokenId}`} target="_blank" rel="noreferrer">{CONTRACT_ADDRESS}</a> </div>}
+      </div>
+  }
+    </>
+  }
   const askContractToMintNft = async () => {
     try {
       const { ethereum } = window;
 
       if (ethereum) {
+        setIsWaitingConfiramtion(true);
+   
         const provider = new ethers.providers.Web3Provider(ethereum);
+        console.log(" 1 provider");
+        
         const signer = provider.getSigner();
+        console.log(" 2 signer");
+
+
         const connectedContract = new ethers.Contract(
           CONTRACT_ADDRESS,
           myEpicNft.abi,
           signer
         );
 
+        
         console.log("Going to pop wallet now to pay gas...");
         let nftTxn = await connectedContract.makeAnEpicNFT();
+
+        if (nftTxn){
+          setContractHash(nftTxn.hash);
+          setIsWaitingConfiramtion(false);
+          setIsMinting(true);
+        }
 
         console.log("Mining...please wait.");
         await nftTxn.wait();
 
+        
+
         console.log(
           `Mined, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`
         );
+        setIsMinting(false);
+        setIsWaitingConfiramtion(false);
       } else {
         console.log("Ethereum object doesn't exist!");
       }
     } catch (error) {
+      setIsMinting(false);
+      setIsWaitingConfiramtion(false);
       console.log(error);
     }
   };
@@ -175,15 +221,24 @@ const App = () => {
   return (
     <div className="App">
       <div className="container">
+        
         <div className="header-container">
+        <div className={isRightNetwork ? "alert-chain" : "hide-alert-chain"}>You are not connected to Goerli network, please switch it! </div>
           <p className="header gradient-text">Classic NFT Collection</p>
           <p className="sub-text">
             Each unique. Each beautiful. Discover your NFT today.
           </p>
           
-          {currentAccount === "" ? renderNotConnectedContainer() : renderMintUI()}
-
+          {currentAccount === "" ? renderNotConnectedContainer() :  
+          (isMinting ? renderMintGif() : renderMintUI())}
+          {isWaitingConfiramtion && <div style={{color: 'white'}}><br/>Waiting confirmation! ...</div>}
+        
+        
+        
         </div>
+
+        {renderOpenSeaInfo()}
+
         <div className="footer-container">
           <a
             className="footer-text"

@@ -89,6 +89,40 @@
   font-weight: bold;
 }
 
+.alert-chain {
+  color: white;
+  padding-bottom: 8px;
+  padding-top: 6px;
+  background-color: orangered;
+}
+
+.hide-alert-chain {
+  display: none;
+}
+
+.mintingInfo{
+  border: 1px solid greenyellow;
+  margin: auto;
+  padding: 20px;
+  max-width: 700px;
+  align-content: center;
+  margin-top: 20px;
+  color:white;
+}
+
+a {
+  color: yellow;
+}
+
+.trxInfo{
+  color:white;
+}
+
+.openSeaInfo{
+  color:white;
+}
+
+
 /* KeyFrames */
 @-webkit-keyframes gradient-animation {
   0% {
@@ -123,3 +157,5 @@
     background-position: 0% 50%;
   }
 }
+
+
