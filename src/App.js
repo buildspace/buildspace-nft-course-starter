@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-
+import { ethers } from "ethers";
+import myEpicNft from './utils/MyEpicNFT.json';
 import "./styles/App.css";
-// import twitterLogo from './assets/twitter-logo.svg';
+import twitterLogo from './assets/twitter-logo.svg';
+
 
 // Constants
 const TWITTER_HANDLE = "_buildspace";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = "";
 const TOTAL_MINT_COUNT = 50;
+
+const CONTRACT_ADDRESS = "0xEA17862D27b4C7EA695B190aB81Dccc4c462A378";
 
 const App = () => {
   /*
@@ -62,7 +66,6 @@ const App = () => {
       console.log("Connected", accounts[0]);
 
       setCurrentAccount(accounts[0]);
-
     } catch (error) {
       console.log(error);
     }
@@ -70,11 +73,46 @@ const App = () => {
 
   // Render Methods
   const renderNotConnectedContainer = () => (
-    <button className="cta-button connect-wallet-button"
-    onClick={connectWallet}>
+    <button
+      className="cta-button connect-wallet-button"
+      onClick={connectWallet}
+    >
       Connect to Wallet
     </button>
   );
+
+  const askContractToMintNft = async () => {
+    
+
+    try {
+      const { ethereum } = window;
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const connectedContract = new ethers.Contract(
+          CONTRACT_ADDRESS,
+          myEpicNft.abi,
+          signer
+        );
+
+        console.log("Going to pop wallet now to pay gas...");
+        let nftTxn = await connectedContract.makeAnEpicNFT();
+
+        console.log("Mining...please wait.");
+        await nftTxn.wait();
+
+        console.log(
+          `Mined, see transaction: https://goerli.etherscan.io/tx/${nftTxn.hash}`
+        );
+
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   /*
    * This runs our function when the page loads.
@@ -91,7 +129,16 @@ const App = () => {
           <p className="sub-text">
             Each unique. Each beautiful. Discover your NFT today.
           </p>
-          {renderNotConnectedContainer()}
+          
+          {currentAccount === "" ? renderNotConnectedContainer() : 
+            (
+            /** Add askContractToMintNft Action for the onClick event **/
+            <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
+              Mint NFT
+            </button>
+            )
+          }
+
         </div>
         <div className="footer-container">
           <a
